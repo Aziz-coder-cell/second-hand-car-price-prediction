@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Price Predictor</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: rgba(20, 22, 28, 0.85);
+      --text-primary: #f5f5f5;
+      --text-secondary: #b0b0b0;
+      --accent: #00e0ff;
+      --accent-2: #ff0077;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* Animated Car Background */
+    .car-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .car {
+      position: absolute;
+      bottom: 10%;
+      left: -200px;
+      width: 180px;
+      animation: drive 12s linear infinite;
+    }
+
+    @keyframes drive {
+      0% { left: -200px; }
+      50% { left: 60%; }
+      100% { left: 110%; }
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 12vh 2rem 6vh;
+      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.5);
+      border-radius: 20px;
+      max-width: 850px;
+      margin: 0 auto;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    p {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+
+    /* CTA Button */
+    .button-link { text-decoration: none; }
+    .button {
+      position: relative;
+      padding: 16px 48px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(45deg, var(--accent), var(--accent-2));
+      color: #fff;
+      z-index: 1;
+    }
+    .button::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50px;
+      background: linear-gradient(45deg, var(--accent), var(--accent-2));
+      filter: blur(15px);
+      opacity: 0.6;
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+    .button:hover::after { opacity: 1; }
+
+    /* Why & How Boxes */
+    .info-section {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 10vh auto;
+      max-width: 1100px;
+      padding: 0 2rem;
+    }
+
+    .info-box {
+      flex: 1;
+      min-width: 300px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    .info-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .info-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      max-width: 900px;
+      margin: 0 auto 10vh;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    .testimonials.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .testimonials h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1.5rem;
+      color: var(--accent-2);
+    }
+    .testimonial {
+      margin-bottom: 1.2rem;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Floating Buttons */
+    .floating-options {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+    }
+    .floating-options.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .floating-button {
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--bg-color);
+      transition: all 0.3s ease;
+    }
+    .floating-button:hover {
+      background: var(--accent-2);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Car Background -->
+  <div class="car-bg">
+    <img src="https://img.icons8.com/ios-filled/200/00e0ff/car.png" class="car" alt="Car">
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Second Hand Car Price Predictor</h1>
+    <p>Discover your car’s true market value instantly with our AI-powered prediction engine.</p>
+    <a href="/carprice" class="button-link">
+      <button class="button">Know Your Car Price</button>
+    </a>
+  </div>
+
+  <!-- Why & How Boxes -->
+  <div class="info-section">
+    <div class="info-box reveal">
+      <h2>Why Choose Us?</h2>
+      <p>We use advanced AI trained on millions of real sales. Our model considers mileage, brand reputation, demand, and market trends to give you the most accurate price possible.</p>
+    </div>
+    <div class="info-box reveal">
+      <h2>How It Works</h2>
+      <p>Our system analyzes live data and comparable sales. With machine learning, we eliminate guesswork and ensure you get a reliable, fair value for your car.</p>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="testimonials reveal">
+    <h2>What Our Users Say</h2>
+    <p class="testimonial">⭐⭐⭐⭐⭐ “I sold my car in just 3 days thanks to the accurate pricing!” – Rajesh K.</p>
+    <p class="testimonial">⭐⭐⭐⭐⭐ “Finally, a tool I can trust. Saved me from underselling my vehicle.” – Anita M.</p>
+    <p class="testimonial">⭐⭐⭐⭐⭐ “Professional, fast, and super easy to use.” – Imran S.</p>
+  </div>
+
+  <!-- Floating Options -->
+  <div class="floating-options" id="floating-options">
+    <a href="/contact" class="floating-button" title="Contact Us">✉️</a>
+    <a href="/help" class="floating-button" title="Help Center">❓</a>
+    <a href="/about" class="floating-button" title="About Us">ℹ️</a>
+  </div>
+
+  <script>
+    // Reveal animations
+    window.addEventListener("scroll", () => {
+      document.querySelectorAll(".reveal").forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+          el.classList.add("visible");
+        }
+      });
+
+      // Floating buttons
+      const floating = document.getElementById("floating-options");
+      if (window.scrollY > 200) {
+        floating.classList.add("visible");
+      } else {
+        floating.classList.remove("visible");
+      }
+    });
+  </script>
+</body>
+</html>

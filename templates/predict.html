@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carso - Car Price Predictor</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: rgba(20, 22, 28, 0.85);
+      --text-primary: #f5f5f5;
+      --text-secondary: #b0b0b0;
+      --accent: #00e0ff;
+      --accent-2: #ff0077;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      width: 90%;
+      max-width: 700px;
+      padding: 30px;
+      border-radius: 16px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+      color: var(--text-secondary);
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      outline: none;
+      transition: 0.3s;
+    }
+
+    select:focus, input:focus {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    option {
+      color: #000; /* dropdown options in black */
+    }
+
+    button {
+      grid-column: span 2;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,224,255,0.6);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <h1>🚗 Car Price Predictor</h1>
+    <form action="/carprice" method="POST">
+      <!-- Make -->
+      <div>
+        <label for="make">Make</label>
+        <select name="make" id="make" required>
+          <option value="" disabled selected>Select Make</option>
+          <option value="Toyota">Toyota</option>
+          <option value="Suzuki">Suzuki</option>
+          <option value="Daihatsu">Daihatsu</option>
+          <option value="Honda">Honda</option>
+          <option value="Hyundai">Hyundai</option>
+          <option value="Mitsubishi">Mitsubishi</option>
+          <option value="KIA">KIA</option>
+          <option value="Changan">Changan</option>
+          <option value="FAW">FAW</option>
+          <option value="Mercedes">Mercedes</option>
+          <option value="Chevrolet">Chevrolet</option>
+        </select>
+      </div>
+
+      <!-- Model -->
+      <div>
+        <label for="model">Model</label>
+        <select name="model" id="model" required>
+          <option value="" disabled selected>Select Model</option>
+          <option value="Passo">Passo</option>
+          <option value="Ravi">Ravi</option>
+          <option value="Bolan">Bolan</option>
+          <option value="Move">Move</option>
+          <option value="Swift">Swift</option>
+          <option value="Wagon R">Wagon R</option>
+          <option value="Mira">Mira</option>
+          <option value="City IDSI">City IDSI</option>
+          <option value="Cultus VXR">Cultus VXR</option>
+          <option value="Corolla XLI">Corolla XLI</option>
+          <option value="Yaris">Yaris</option>
+          <option value="Civic">Civic</option>
+          <option value="Prius">Prius</option>
+        </select>
+      </div>
+
+      <!-- Year -->
+      <div>
+        <label for="year">Year</label>
+        <select name="year" id="year" required>
+          <option value="" disabled selected>Select Year</option>
+          <option value="2025">2005</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
+          <option value="2016">2016</option>
+          <option value="2015">2015</option>
+          <option value="2014">2005</option>
+          <option value="2013">2005</option>
+          <option value="2012">2005</option>
+          <option value="2011">2005</option>
+          <option value="2010">2010</option>
+          <option value="2009">2005</option>
+          <option value="2008">2005</option>
+          <option value="2007">2005</option>
+          <option value="2006">2005</option>
+          <option value="2005">2005</option>
+        </select>
+      </div>
+
+      <!-- KM Driven -->
+      <div>
+        <label for="kms">KMs Driven</label>
+        <input type="number" id="kms" name="kms_driven" placeholder="Enter KMs Driven" required>
+      </div>
+
+      <!-- Fuel -->
+      <div>
+        <label for="fuel">Fuel</label>
+        <select name="fuel" id="fuel" required>
+          <option value="" disabled selected>Select Fuel</option>
+          <option value="Petrol">Petrol</option>
+          <option value="CNG">CNG</option>
+          <option value="Hybrid">Hybrid</option>
+          <option value="Diesel">Diesel</option>
+        </select>
+      </div>
+
+      <!-- Registration City -->
+      <div>
+        <label for="reg">Registration City</label>
+        <select name="registration_city" id="reg" required>
+          <option value="" disabled selected>Select City</option>
+          <option value="Unregistered">Unregistered</option>
+          <option value="Karachi">Karachi</option>
+          <option value="Lahore">Lahore</option>
+          <option value="Islamabad">Islamabad</option>
+          <option value="Rawalpindi">Rawalpindi</option>
+          <option value="Multan">Multan</option>
+          <option value="Peshawar">Peshawar</option>
+          <option value="Faisalabad">Faisalabad</option>
+        </select>
+      </div>
+
+      <!-- Documents -->
+      <div>
+        <label for="docs">Car Documents</label>
+        <select name="car_documents" id="docs" required>
+          <option value="" disabled selected>Select Documents</option>
+          <option value="Original">Original</option>
+          <option value="Duplicate">Duplicate</option>
+        </select>
+      </div>
+
+      <!-- Assembly -->
+      <div>
+        <label for="assembly">Assembly</label>
+        <select name="assembly" id="assembly" required>
+          <option value="" disabled selected>Select Assembly</option>
+          <option value="Imported">Imported</option>
+          <option value="Local">Local</option>
+        </select>
+      </div>
+
+      <!-- Transmission -->
+      <div>
+        <label for="transmission">Transmission</label>
+        <select name="transmission" id="transmission" required>
+          <option value="" disabled selected>Select Transmission</option>
+          <option value="Automatic">Automatic</option>
+          <option value="Manual">Manual</option>
+        </select>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit">Predict Price</button>
+    </form>
+  </div>
+
+</body>
+</html>
